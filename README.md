@@ -39,8 +39,7 @@ Then use and chain promises:
 
     ...
 
-    promise := Tasks()
-    promise.Then(func() {
+    promise := Tasks().Then(func() {
       println("Done")
     }, (err error) {
       println(err.Error())
