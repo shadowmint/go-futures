@@ -1,0 +1,31 @@
+{
+  "name": "go-futures",
+  "version": "1.0.0",
+  "description": "Promises for go",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shadowmint/go-futures.git"
+  },
+  "files": [
+    "index.js",
+    "scripts",
+    "src"
+  ],
+  "author": "douglas.linder@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shadowmint/go-futures/issues"
+  },
+  "homepage": "https://github.com/shadowmint/go-futures",
+  "scripts": {
+    "test": "go test -v ./src/ntoolkit/...",
+    "generate": "go generate ./src/ntoolkit/...",
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "dependencies": {
+    "go-assert": "github:shadowmint/go-assert",
+    "mkdirp": "^0.5.1",
+    "ncp": "^2.0.0"
+  }
+}
