@@ -5,58 +5,58 @@ package futures_test
 import "ntoolkit/futures"
 
 
-type DeferredValueInt struct {
+type DeferredInt struct {
 	DeferredValue futures.Promise
 }
 
-func (promise *DeferredValueInt) init() {
+func (promise *DeferredInt) init() {
 	if promise.DeferredValue == nil {
 		promise.DeferredValue = &futures.DeferredValue{}
 	}
 }
 
-func (promise *DeferredValueInt) Resolve(result int) {
+func (promise *DeferredInt) Resolve(result int) {
 	promise.init()
 	promise.DeferredValue.PResolve(result)
 }
 
-func (promise *DeferredValueInt) Reject(err error) {
+func (promise *DeferredInt) Reject(err error) {
 	promise.init()
 	promise.DeferredValue.PReject(err)
 }
 
-func (promise *DeferredValueInt) Errors() []error {
+func (promise *DeferredInt) Errors() []error {
 	promise.init()
 	return promise.DeferredValue.PErrors()
 }
 
-func (promise *DeferredValueInt) Then(resolve func(int), reject func(error)) *DeferredValueInt {
+func (promise *DeferredInt) Then(resolve func(int), reject func(error)) *DeferredInt {
 	promise.init()
 	promise.DeferredValue.PThen(func(value interface{}) {
 		if v, ok := value.(int); ok {
 			resolve(v)
 		}
-		panic("Invalid value used to resolve DeferredValueInt")
+		panic("Invalid value used to resolve DeferredInt")
 	}, reject)
 	return promise
 }
 
-func (promise *DeferredValueInt) PThen(result func(interface{}), reject func(error)) futures.Promise {
+func (promise *DeferredInt) PThen(result func(interface{}), reject func(error)) futures.Promise {
 	promise.init()
 	return promise.DeferredValue.PThen(result, reject)
 }
 
-func (promise *DeferredValueInt) PErrors() []error {
+func (promise *DeferredInt) PErrors() []error {
 	promise.init()
 	return promise.DeferredValue.PErrors()
 }
 
-func (promise *DeferredValueInt) PResolve(result interface{}) {
+func (promise *DeferredInt) PResolve(result interface{}) {
 	promise.init()
 	promise.DeferredValue.PResolve(result)
 }
 
-func (promise *DeferredValueInt) PReject(err error) {
+func (promise *DeferredInt) PReject(err error) {
 	promise.init()
 	promise.DeferredValue.PReject(err)
 }

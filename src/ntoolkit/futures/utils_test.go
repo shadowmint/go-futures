@@ -10,8 +10,8 @@ import (
 func TestAll(tests *testing.T) {
 	assert.Test(tests, func(T *assert.T) {
 		resolved := false
-		p1 := &DeferredValueInt{}
-		p2 := &DeferredValueT{}
+		p1 := &DeferredInt{}
+		p2 := &DeferredT{}
 
 		promise := futures.All(p1, p2)
 		promise.Then(func() {
@@ -30,8 +30,8 @@ func TestAll(tests *testing.T) {
 func TestAllReject(tests *testing.T) {
 	assert.Test(tests, func(T *assert.T) {
 		rejected := false
-		p1 := &DeferredValueInt{}
-		p2 := &DeferredValueT{}
+		p1 := &DeferredInt{}
+		p2 := &DeferredT{}
 
 		promise := futures.All(p1, p2)
 		promise.Then(func() {
@@ -50,8 +50,8 @@ func TestAllReject(tests *testing.T) {
 func TestAny(tests *testing.T) {
 	assert.Test(tests, func(T *assert.T) {
 		resolved := false
-		p1 := &DeferredValueInt{}
-		p2 := &DeferredValueT{}
+		p1 := &DeferredInt{}
+		p2 := &DeferredT{}
 
 		promise := futures.Any(p1, p2)
 		promise.Then(func() {
@@ -70,8 +70,8 @@ func TestAny(tests *testing.T) {
 func TestAnyReject(tests *testing.T) {
 	assert.Test(tests, func(T *assert.T) {
 		rejected := false
-		p1 := &DeferredValueInt{}
-		p2 := &DeferredValueT{}
+		p1 := &DeferredInt{}
+		p2 := &DeferredT{}
 
 		promise := futures.Any(p1, p2)
 		promise.Then(func() {

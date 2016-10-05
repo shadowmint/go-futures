@@ -77,58 +77,58 @@ import "ntoolkit/futures"
 import "{{.TypeImport}}"
 {{end}}
 
-type DeferredValue{{.TypeName}} struct {
+type Deferred{{.TypeName}} struct {
 	DeferredValue futures.Promise
 }
 
-func (promise *DeferredValue{{.TypeName}}) init() {
+func (promise *Deferred{{.TypeName}}) init() {
 	if promise.DeferredValue == nil {
 		promise.DeferredValue = &futures.DeferredValue{}
 	}
 }
 
-func (promise *DeferredValue{{.TypeName}}) Resolve(result {{.TypeValue}}) {
+func (promise *Deferred{{.TypeName}}) Resolve(result {{.TypeValue}}) {
 	promise.init()
 	promise.DeferredValue.PResolve(result)
 }
 
-func (promise *DeferredValue{{.TypeName}}) Reject(err error) {
+func (promise *Deferred{{.TypeName}}) Reject(err error) {
 	promise.init()
 	promise.DeferredValue.PReject(err)
 }
 
-func (promise *DeferredValue{{.TypeName}}) Errors() []error {
+func (promise *Deferred{{.TypeName}}) Errors() []error {
 	promise.init()
 	return promise.DeferredValue.PErrors()
 }
 
-func (promise *DeferredValue{{.TypeName}}) Then(resolve func({{.TypeValue}}), reject func(error)) *DeferredValue{{.TypeName}} {
+func (promise *Deferred{{.TypeName}}) Then(resolve func({{.TypeValue}}), reject func(error)) *Deferred{{.TypeName}} {
 	promise.init()
 	promise.DeferredValue.PThen(func(value interface{}) {
 		if v, ok := value.({{.TypeValue}}); ok {
 			resolve(v)
 		}
-		panic("Invalid value used to resolve DeferredValue{{.TypeName}}")
+		panic("Invalid value used to resolve Deferred{{.TypeName}}")
 	}, reject)
 	return promise
 }
 
-func (promise *DeferredValue{{.TypeName}}) PThen(result func(interface{}), reject func(error)) futures.Promise {
+func (promise *Deferred{{.TypeName}}) PThen(result func(interface{}), reject func(error)) futures.Promise {
 	promise.init()
 	return promise.DeferredValue.PThen(result, reject)
 }
 
-func (promise *DeferredValue{{.TypeName}}) PErrors() []error {
+func (promise *Deferred{{.TypeName}}) PErrors() []error {
 	promise.init()
 	return promise.DeferredValue.PErrors()
 }
 
-func (promise *DeferredValue{{.TypeName}}) PResolve(result interface{}) {
+func (promise *Deferred{{.TypeName}}) PResolve(result interface{}) {
 	promise.init()
 	promise.DeferredValue.PResolve(result)
 }
 
-func (promise *DeferredValue{{.TypeName}}) PReject(err error) {
+func (promise *Deferred{{.TypeName}}) PReject(err error) {
 	promise.init()
 	promise.DeferredValue.PReject(err)
 }

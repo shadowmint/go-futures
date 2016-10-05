@@ -7,58 +7,58 @@ import "ntoolkit/futures"
 import "testing"
 
 
-type DeferredValueT struct {
+type DeferredT struct {
 	DeferredValue futures.Promise
 }
 
-func (promise *DeferredValueT) init() {
+func (promise *DeferredT) init() {
 	if promise.DeferredValue == nil {
 		promise.DeferredValue = &futures.DeferredValue{}
 	}
 }
 
-func (promise *DeferredValueT) Resolve(result *testing.T) {
+func (promise *DeferredT) Resolve(result *testing.T) {
 	promise.init()
 	promise.DeferredValue.PResolve(result)
 }
 
-func (promise *DeferredValueT) Reject(err error) {
+func (promise *DeferredT) Reject(err error) {
 	promise.init()
 	promise.DeferredValue.PReject(err)
 }
 
-func (promise *DeferredValueT) Errors() []error {
+func (promise *DeferredT) Errors() []error {
 	promise.init()
 	return promise.DeferredValue.PErrors()
 }
 
-func (promise *DeferredValueT) Then(resolve func(*testing.T), reject func(error)) *DeferredValueT {
+func (promise *DeferredT) Then(resolve func(*testing.T), reject func(error)) *DeferredT {
 	promise.init()
 	promise.DeferredValue.PThen(func(value interface{}) {
 		if v, ok := value.(*testing.T); ok {
 			resolve(v)
 		}
-		panic("Invalid value used to resolve DeferredValueT")
+		panic("Invalid value used to resolve DeferredT")
 	}, reject)
 	return promise
 }
 
-func (promise *DeferredValueT) PThen(result func(interface{}), reject func(error)) futures.Promise {
+func (promise *DeferredT) PThen(result func(interface{}), reject func(error)) futures.Promise {
 	promise.init()
 	return promise.DeferredValue.PThen(result, reject)
 }
 
-func (promise *DeferredValueT) PErrors() []error {
+func (promise *DeferredT) PErrors() []error {
 	promise.init()
 	return promise.DeferredValue.PErrors()
 }
 
-func (promise *DeferredValueT) PResolve(result interface{}) {
+func (promise *DeferredT) PResolve(result interface{}) {
 	promise.init()
 	promise.DeferredValue.PResolve(result)
 }
 
-func (promise *DeferredValueT) PReject(err error) {
+func (promise *DeferredT) PReject(err error) {
 	promise.init()
 	promise.DeferredValue.PReject(err)
 }

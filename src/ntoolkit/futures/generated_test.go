@@ -9,9 +9,9 @@ import (
 	"testing"
 )
 
-func TestDeferredValueInt(T *testing.T) {
+func TestDeferredInt(T *testing.T) {
 	assert.Test(T, func(T *assert.T) {
-		instance := &DeferredValueInt{}
+		instance := &DeferredInt{}
 		instance.Then(func(v int) {
 			T.Assert(v == 10)
 		}, func(e error) {
@@ -21,16 +21,16 @@ func TestDeferredValueInt(T *testing.T) {
 	})
 }
 
-func TestDeferredValueIntIsPromise(T *testing.T) {
+func TestDeferredIntIsPromise(T *testing.T) {
 	assert.Test(T, func(T *assert.T) {
-		var _ futures.Promise = &DeferredValueInt{}
+		var _ futures.Promise = &DeferredInt{}
 	})
 }
 
-func TestDeferredValueT(tests *testing.T) {
+func TestDeferredT(tests *testing.T) {
 	assert.Test(tests, func(T *assert.T) {
 		resolved := false
-		instance := &DeferredValueT{}
+		instance := &DeferredT{}
 		instance.Then(func(v *testing.T) {
 			T.Assert(v == tests)
 			resolved = true
@@ -42,8 +42,8 @@ func TestDeferredValueT(tests *testing.T) {
 	})
 }
 
-func TestDeferredValueTIsPromise(T *testing.T) {
+func TestDeferredTIsPromise(T *testing.T) {
 	assert.Test(T, func(T *assert.T) {
-		var _ futures.Promise = &DeferredValueT{}
+		var _ futures.Promise = &DeferredT{}
 	})
 }
