@@ -1,7 +1,9 @@
 package futures
 
-import "errors"
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 const (
 	pending  = 0
@@ -88,7 +90,6 @@ func (promise *DeferredValue) flush() {
 	}
   if len(promise.errors) > 0 {
     if !promise.DontPanic {
-      fmt.Printf("Panic! %s\n", promise.errors[0])
       panic(promise.errors)
     }
   }
@@ -105,7 +106,7 @@ func (promise *DeferredValue) safeInvoke(callback pendingDeferred) (err error) {
 			case error:
 				err = x
 			default:
-				err = errors.New("Unknown panic")
+				err = errors.New(fmt.Sprintf("%s", r))
 			}
 		}
 	}()
