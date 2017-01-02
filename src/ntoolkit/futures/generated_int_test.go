@@ -35,8 +35,9 @@ func (promise *DeferredInt) Then(resolve func(int), reject func(error)) *Deferre
 	promise.DeferredValue.PThen(func(value interface{}) {
 		if v, ok := value.(int); ok {
 			resolve(v)
+		} else {
+		  panic("Invalid value used to resolve DeferredInt")
 		}
-		panic("Invalid value used to resolve DeferredInt")
 	}, reject)
 	return promise
 }

@@ -107,8 +107,9 @@ func (promise *Deferred{{.TypeName}}) Then(resolve func({{.TypeValue}}), reject 
 	promise.DeferredValue.PThen(func(value interface{}) {
 		if v, ok := value.({{.TypeValue}}); ok {
 			resolve(v)
+		} else {
+		  panic("Invalid value used to resolve Deferred{{.TypeName}}")
 		}
-		panic("Invalid value used to resolve Deferred{{.TypeName}}")
 	}, reject)
 	return promise
 }

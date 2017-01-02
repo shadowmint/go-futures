@@ -1,6 +1,7 @@
 package futures
 
 import "errors"
+import "fmt"
 
 const (
 	pending  = 0
@@ -35,6 +36,9 @@ type DeferredValue struct {
 
 	// Errors that happened while processing events
 	errors []error
+
+  // If set, silently consume errors to prevent bubbling panics
+  DontPanic bool
 }
 
 // PErrors returns the set of errors saved
@@ -82,6 +86,12 @@ func (promise *DeferredValue) flush() {
 			promise.errors = append(promise.errors, err)
 		}
 	}
+  if len(promise.errors) > 0 {
+    if !promise.DontPanic {
+      fmt.Printf("Panic! %s\n", promise.errors[0])
+      panic(promise.errors)
+    }
+  }
 	promise.pending = nil
 }
 

@@ -117,7 +117,7 @@ func TestAsyncPromiseResolution(T *testing.T) {
 func TestErrorsAreCollected(T *testing.T) {
 	assert.Test(T, func(T *assert.T) {
 		counter := 0
-		DeferredValue := &futures.DeferredValue{}
+    DeferredValue := &futures.DeferredValue{DontPanic: true}
 
 		DeferredValue.PThen(func(data interface{}) {
 			panic(errors.New("Test"))
