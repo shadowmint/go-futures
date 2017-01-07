@@ -8,6 +8,10 @@ import (
 // Returns a Deferred that resolves if all input promises pass.
 func All(promises ...Promise) *Deferred {
 	DeferredValue := &Deferred{}
+	if len(promises) == 0 {
+		DeferredValue.Resolve()
+		return DeferredValue
+	}
 	count := 0
 	target := len(promises)
 	rejected := 0
@@ -37,6 +41,10 @@ func All(promises ...Promise) *Deferred {
 // Returns a Deferred that resolves if any input promises pass.
 func Any(promises ...Promise) *Deferred {
 	DeferredValue := &Deferred{}
+	if len(promises) == 0 {
+		DeferredValue.Resolve()
+		return DeferredValue
+	}
 	count := 0
 	target := len(promises)
 	resolved := false
