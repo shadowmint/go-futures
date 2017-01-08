@@ -15,14 +15,16 @@ func All(promises ...Promise) *Deferred {
 	count := 0
 	target := len(promises)
 	rejected := 0
-	resolver := func(success bool) {
+	errList := make([]error, 0)
+	resolver := func(success bool, err error) {
 		if !success {
 			rejected++
+			errList = append(errList, err)
 		}
 		count++
 		if count == target {
 			if rejected > 0 {
-				DeferredValue.Reject(errors.New(fmt.Sprintf("%d/%d Deferreds failed", rejected/count)))
+				DeferredValue.Reject(errors.New(fmt.Sprintf("%d/%d Deferreds failed: %s", rejected, count, errList)))
 			} else {
 				DeferredValue.Resolve()
 			}
@@ -30,9 +32,9 @@ func All(promises ...Promise) *Deferred {
 	}
 	for _, promise := range promises {
 		promise.PThen(func(_ interface{}) {
-			resolver(true)
-		}, func(_ error) {
-			resolver(false)
+			resolver(true, nil)
+		}, func(err error) {
+			resolver(false, err)
 		})
 	}
 	return DeferredValue

@@ -1,6 +1,6 @@
 {
   "name": "go-futures",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Promises for go",
   "main": "index.js",
   "repository": {
